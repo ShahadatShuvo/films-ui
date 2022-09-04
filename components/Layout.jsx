@@ -19,7 +19,7 @@ function Layout({ children }) {
           w-2/4
           rounded-lg
           my-16
-          p-16
+          p-10
         "
         >
           <div className="w-full text-2xl font-medium">{children}</div>
