@@ -4,8 +4,12 @@ import styles from "../styles/Home.module.css";
 
 export default function Home() {
   return (
-    <div>
-      <h1 className="text-blue-400 text-2xl">Hello world</h1>
+    <div className="w-[100vw] h-[70vh] flex justify-center items-center ">
+      <div className="w-[40%] h-[40%] bg-white">
+        <h1 className="text-2xl w-full h-full flex justify-center items-center">
+          Hello world
+        </h1>
+      </div>
     </div>
   );
 }
