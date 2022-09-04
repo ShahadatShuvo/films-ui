@@ -1,7 +1,7 @@
 import Head from "next/head";
 import React from "react";
 
-function Layout() {
+function Layout({ children }) {
   return (
     <div>
       <Head>
