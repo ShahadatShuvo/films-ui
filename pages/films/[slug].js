@@ -8,7 +8,7 @@ function SingleFilm({ film }) {
   return (
     <Layout>
       <div className="font-normal text-sm">
-        <p className="text-2xl text-center uppercase">
+        <p className="text-2xl text-center uppercase font-extrabold text-transparent  bg-clip-text bg-gradient-to-r from-blue-400 to-pink-600">
           {film.data.attributes.title}
         </p>
         <p className="text-lg">Director: {film.data.attributes.director}</p>
