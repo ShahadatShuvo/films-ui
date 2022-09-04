@@ -22,7 +22,7 @@ function Layout({ children }) {
           p-16
         "
         >
-          <div className="text-2xl font-medium">{children}</div>
+          <div className="w-full text-2xl font-medium">{children}</div>
         </div>
       </main>
     </div>

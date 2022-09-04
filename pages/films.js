@@ -3,6 +3,7 @@ import Layout from "../components/Layout";
 import { fetcher } from "../lib/api";
 import Pagination from "@mui/material/Pagination";
 import useSWR from "swr";
+import FilmDetail from "../components/FilmDetail";
 
 function FilmsList({ films }) {
   const [page, setPage] = React.useState(1);
@@ -22,15 +23,11 @@ function FilmsList({ films }) {
     <Layout>
       <p>FilmsList</p>
       {data.data.map((film) => (
-        <div key={film.attributes.id} className="my-3 bg-slate-100 p-2">
-          <h1>Title: {film.attributes.title}</h1>
-          <p className="text-sm font-normal">
-            Director: {film.attributes.director}
-          </p>
-          <p className="text-sm font-normal">
-            Released Date: {film.attributes.released}
-          </p>
-        </div>
+        <FilmDetail
+          key={film.attributes.id}
+          filmData={film.attributes}
+          id={film.id}
+        />
       ))}
       <div>
         <Pagination
