@@ -3,7 +3,7 @@ import React from "react";
 
 function Wrapper({ children }) {
   return (
-    <div className="w-[100vw] flex justify-center items-center ">
+    <div className="w-[100vw] flex justify-center items-center my-5">
       <Head>
         <title>Film Database</title>
       </Head>
