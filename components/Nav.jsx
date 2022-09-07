@@ -75,7 +75,7 @@ function Nav() {
   };
 
   return (
-    <div className="bg-white">
+    <div className="bg-white mb-5">
       <header className="text-gray-600 body-font">
         <div className="container mx-auto flex flex-wrap p-4 flex-col md:flex-row items-center">
           <Link href="/films">
@@ -95,6 +95,7 @@ function Nav() {
               <span className="ml-3 text-xl">Films</span>
             </a>
           </Link>
+          <p className="w-1/8 ml-auto">Welcome {user}</p>
           <nav className="md:ml-auto flex flex-wrap items-center text-base justify-center">
             <Link href="/">
               <a className="mr-5 hover:text-gray-900">Home</a>
@@ -118,6 +119,12 @@ function Nav() {
                   type="submit"
                   onClick={logout}
                   style={{ cursor: "pointer" }}
+                  // sx={{
+                  //   color: "black",
+                  //   "&:hover": {
+                  //     color: "white",
+                  //   },
+                  // }}
                 >
                   Logout
                 </Button>

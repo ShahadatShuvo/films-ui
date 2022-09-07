@@ -3,7 +3,6 @@ import Button from "@mui/material/Button";
 import Link from "next/link";
 
 function FilmDetail({ filmData }) {
-  // console.log("filmData", filmData);
   return (
     <div className="my-3 bg-slate-100 p-3 px-4 rounded-lg flex justify-between items-end">
       <div>
