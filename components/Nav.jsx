@@ -1,8 +1,79 @@
 import React from "react";
 import Head from "next/head";
 import Link from "next/link";
+import { useState } from "react";
+import { fetcher } from "../lib/api";
+import TextField from "@mui/material/TextField";
+import { setToken, unsetToken } from "../lib/auth";
+import { useFetchUser, useUser } from "../lib/authContext";
+import { Button, InputLabel, OutlinedInput } from "@mui/material";
+import InputAdornment from "@mui/material/InputAdornment";
+import IconButton from "@mui/material/IconButton";
+import FormControl from "@mui/material/FormControl";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 function Nav() {
+  const { user, loading } = useFetchUser();
+
+  const [data, setData] = useState({
+    identifier: "",
+    password: "",
+    showPassword: false,
+  });
+
+  console.log("user:", user);
+
+  const [error, setError] = useState(false);
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const responseData = await fetcher(
+      `${process.env.NEXT_PUBLIC_STRAPI_URL}/auth/local`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          identifier: data.identifier,
+          password: data.password,
+        }),
+      }
+    );
+    console.log("responseData", responseData);
+    if (!responseData.jwt) {
+      console.log("error");
+      setError(true);
+    } else {
+      console.log("success");
+      setToken(responseData);
+    }
+  }
+
+  const logout = () => {
+    unsetToken();
+  };
+
+  const handleChange = (e) => {
+    setError(false);
+    setData({
+      ...data,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleClickShowPassword = () => {
+    setData({
+      ...data,
+      showPassword: !data.showPassword,
+    });
+  };
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+
   return (
     <div className="bg-white">
       <header className="text-gray-600 body-font">
@@ -31,6 +102,116 @@ function Nav() {
             <Link href="/films">
               <a className="mr-5 hover:text-gray-900">Films</a>
             </Link>
+            {!loading &&
+              (user ? (
+                <Link href="/profile">
+                  <a className="mr-5 hover:text-gray-900">Profile</a>
+                </Link>
+              ) : (
+                ""
+              ))}
+            {!loading &&
+              (user ? (
+                <Button
+                  size="small"
+                  variant="contained"
+                  type="submit"
+                  onClick={logout}
+                  style={{ cursor: "pointer" }}
+                >
+                  Logout
+                </Button>
+              ) : (
+                ""
+              ))}
+            {!loading && !user ? (
+              <>
+                <form onSubmit={handleSubmit} className="flex gap-3">
+                  <TextField
+                    error={error ? true : false}
+                    required
+                    size="small"
+                    id="outlined-basic"
+                    label="Username / Email"
+                    variant="outlined"
+                    name="identifier"
+                    value={data.identifier}
+                    onChange={handleChange}
+                    helperText={error ? "Incorrect Email or Password." : ""}
+                  />
+
+                  <FormControl
+                    sx={{ width: "25ch", padding: 0 }}
+                    variant="outlined"
+                  >
+                    <InputLabel
+                      htmlFor="outlined-adornment-password"
+                      sx={{
+                        padding: 0,
+                        marginTop: "-7px",
+                        "&:active": {
+                          marginTop: 0,
+                        },
+                      }}
+                    >
+                      Password
+                    </InputLabel>
+                    <OutlinedInput
+                      size="small"
+                      error={error ? true : false}
+                      required
+                      id="outlined-adornment-password"
+                      type={data.showPassword ? "text" : "password"}
+                      name="password"
+                      value={data.password}
+                      onChange={handleChange}
+                      sx={{ paddingLeft: "10px" }}
+                      endAdornment={
+                        <InputAdornment position="end">
+                          <IconButton
+                            aria-label="toggle password visibility"
+                            onClick={handleClickShowPassword}
+                            onMouseDown={handleMouseDownPassword}
+                            edge="end"
+                          >
+                            {data.showPassword ? (
+                              <VisibilityOff />
+                            ) : (
+                              <Visibility />
+                            )}
+                          </IconButton>
+                        </InputAdornment>
+                      }
+                      label="Password"
+                    />
+                  </FormControl>
+                  <Button
+                    size="small"
+                    variant="contained"
+                    type="submit"
+                    sx={{
+                      padding: 0,
+                      margin: "3px",
+                    }}
+                  >
+                    Login
+                  </Button>
+                </form>
+                <Link href="/register">
+                  <Button
+                    size="small"
+                    variant="contained"
+                    sx={{
+                      marginLeft: "10px",
+                    }}
+                  >
+                    Register
+                  </Button>
+                </Link>
+              </>
+            ) : (
+              ""
+            )}
           </nav>
         </div>
       </header>

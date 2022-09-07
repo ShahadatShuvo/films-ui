@@ -1,31 +1,18 @@
 import Head from "next/head";
 import React from "react";
+import { UserProvider } from "../lib/authContext";
 
-function Layout({ children }) {
+function Layout({ user, loading = false, children }) {
   return (
-    <div>
+    <UserProvider value={(user, loading)}>
       <Head>
         <title>Film Database</title>
       </Head>
       {/* <Nav />  */}
-      <main className="px-4">
-        <div
-          className="
-          flex
-          justify-center
-          items-center
-          bg-white
-          mx-auto
-          w-2/4
-          rounded-lg
-          my-16
-          p-10
-        "
-        >
-          <div className="w-full text-2xl font-medium">{children}</div>
-        </div>
+      <main>
+        <div>{children}</div>
       </main>
-    </div>
+    </UserProvider>
   );
 }
 

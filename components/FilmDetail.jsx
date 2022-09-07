@@ -2,7 +2,8 @@ import React from "react";
 import Button from "@mui/material/Button";
 import Link from "next/link";
 
-function FilmDetail({ filmData, id }) {
+function FilmDetail({ filmData }) {
+  // console.log("filmData", filmData);
   return (
     <div className="my-3 bg-slate-100 p-3 px-4 rounded-lg flex justify-between items-end">
       <div>
@@ -13,7 +14,7 @@ function FilmDetail({ filmData, id }) {
         </p>
       </div>
       <div className="flex justify-end">
-        <Link href={`films/${id}`}>
+        <Link href={`films/${filmData.slug}`}>
           <Button size="small" variant="text">
             View Detail
           </Button>

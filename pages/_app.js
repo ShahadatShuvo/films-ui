@@ -1,12 +1,19 @@
 import Nav from "../components/Nav";
 import "../styles/globals.css";
+import Layout from "../components/Layout";
+import { useFetchUser } from "../lib/authContext";
+import Wrapper from "../components/Wrapper";
 
 function MyApp({ Component, pageProps }) {
+  const { user, loading } = useFetchUser();
+
   return (
-    <div>
+    <Layout user={user}>
       <Nav />
-      <Component {...pageProps} />
-    </div>
+      <Wrapper>
+        <Component {...pageProps} />
+      </Wrapper>
+    </Layout>
   );
 }
 
