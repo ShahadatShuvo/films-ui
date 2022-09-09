@@ -22,8 +22,6 @@ function Nav() {
     showPassword: false,
   });
 
-  console.log("user:", user);
-
   const [error, setError] = useState(false);
 
   async function handleSubmit(e) {
@@ -41,12 +39,9 @@ function Nav() {
         }),
       }
     );
-    console.log("responseData", responseData);
     if (!responseData.jwt) {
-      console.log("error");
       setError(true);
     } else {
-      console.log("success");
       setToken(responseData);
     }
   }
@@ -119,12 +114,12 @@ function Nav() {
                   type="submit"
                   onClick={logout}
                   style={{ cursor: "pointer" }}
-                  // sx={{
-                  //   color: "black",
-                  //   "&:hover": {
-                  //     color: "white",
-                  //   },
-                  // }}
+                  sx={{
+                    color: "black",
+                    "&:hover": {
+                      color: "white",
+                    },
+                  }}
                 >
                   Logout
                 </Button>
@@ -148,19 +143,11 @@ function Nav() {
                   />
 
                   <FormControl
-                    sx={{ width: "25ch", padding: 0 }}
+                    size="small"
+                    sx={{ width: "25ch" }}
                     variant="outlined"
                   >
-                    <InputLabel
-                      htmlFor="outlined-adornment-password"
-                      sx={{
-                        padding: 0,
-                        marginTop: "-7px",
-                        "&:active": {
-                          marginTop: 0,
-                        },
-                      }}
-                    >
+                    <InputLabel htmlFor="outlined-adornment-password">
                       Password
                     </InputLabel>
                     <OutlinedInput
@@ -197,8 +184,10 @@ function Nav() {
                     variant="contained"
                     type="submit"
                     sx={{
+                      color: "black",
                       padding: 0,
                       margin: "3px",
+                      "&:hover": { color: "white" },
                     }}
                   >
                     Login
@@ -210,6 +199,8 @@ function Nav() {
                     variant="contained"
                     sx={{
                       marginLeft: "10px",
+                      color: "black",
+                      "&:hover": { color: "white" },
                     }}
                   >
                     Register
